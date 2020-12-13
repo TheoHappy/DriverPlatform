@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
     <style>
         table {
             width:100%;
@@ -95,40 +98,34 @@
             opacity: 1;
         }
     </style>
+
 </head>
 <body>
+<center>
+<div>
+    <form th:method="POST" th:action="@{/drivers}"  th:object="${driver}" class="form-container" >
+        <h1>Add driver</h1>
+        <input type="hidden" th:field="*{id}"/>
+        <label for="firstname"><b>First Name</b></label>
+        <input type="text" th:field="*{firstName}"  placeholder="Enter First Name" id="firstname" >
 
-<h1 th:text="${message}"></h1>
-<a href="/drivers/addDriver">Add driver</a>
-<br>
-<table>
-    <thead>
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Gender</th>
-        <th>Age</th>
-        <th>Driver License ID</th>
-        <th>Edit/Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="driver : ${drivers}">
-        <td th:text="${driver.firstName}"/>
-        <td th:text="${driver.lastName} "/>
-        <td th:text="${driver.gender} "/>
-        <td th:text="${driver.age} "/>
-        <td th:text="${driver.driverLicenseId} "/>
-        <td>
-           <a href="#" th:href="@{/drivers/deleteDriver/{id}(id=${driver.id})}">Delete</a>
-            <a href="#" th:href="@{/drivers/updateDriver/{id}(id=${driver.id})}">Update</a>
-<!--            <form th:method="DELETE" th:action="@{/drivers/{id}(id=${driver.id})}">-->
-<!--                <input type="submit" value="Delete">-->
-<!--            </form>-->
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <label for="lastname"><b>Last Name</b></label>
+        <input type="text" th:field="*{lastName}" placeholder="Enter Last Name" name="lastname" id="lastname" required>
+
+        <label for="age"><b>Age</b></label>
+        <input type="text" th:field="*{age}" placeholder="Enter Age" name="age" id="age" required>
+
+        <label for="gender"><b>Gender</b></label>
+        <input type="text" th:field="*{gender}" placeholder="Enter Gender" name="gender" id="gender" required>
+
+        <label for="driverLicenseId"><b>Driver License ID</b></label>
+        <input type="text" th:field="*{driverLicenseId}" placeholder="Enter Driver License ID" name="driverLicenseId" id="driverLicenseId" required>
+
+        <button type="submit" class="btn">Submit</button>
+        <button type="button" class="btn cancel" >Close</button>
+    </form>
+</div>
+</center>
 
 </body>
 </html>

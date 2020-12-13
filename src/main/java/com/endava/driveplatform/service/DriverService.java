@@ -16,15 +16,20 @@ public class DriverService {
 
     private final DriverRepository driverRepository;
 
-    public List<Driver> getAllDrivers(){
+    public List<Driver> getAllDrivers() {
         return new ArrayList<>(driverRepository.findAll());
     }
 
-    public Driver save(DriverRequestDto driverRequestDto){
-        Driver driver = mapDriverRequestDtoToDriver(driverRequestDto);
+//    public Driver save(DriverRequestDto driverRequestDto){
+//        Driver driver = mapDriverRequestDtoToDriver(driverRequestDto);
+//
+//        return driverRepository.save(driver);
+//    }
 
+    public Driver save(Driver driver) {
         return driverRepository.save(driver);
     }
+
 
     public String delete(Long id) {
         Driver driver = driverRepository.findById(id).orElseThrow(
@@ -60,5 +65,12 @@ public class DriverService {
         driver.setDriverLicenseId(driverRequestDto.getDriverLicenseId());
 
         return driverRepository.saveAndFlush(driver);
+    }
+
+    public Driver getDriverById(Long id) {
+        Driver driver = driverRepository.findById(id).orElseThrow(
+                () -> new DriverNotFoundException("No such driver")
+        );
+        return driver;
     }
 }
