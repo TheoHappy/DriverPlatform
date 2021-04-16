@@ -1,0 +1,29 @@
+.table{
+    margin: 0 auto;
+    width: 50%;
+}
+td{
+    padding: 10px;
+    text-align: center;
+    vertical-align: top;
+}
+th{
+    padding: 10px;
+    text-align: center;
+    vertical-align: top;
+}
+.btn-primary{
+    margin-left: 1vh;
+}
+
+#tblDriver tr:nth-child(even){background-color: #f2f2f2;}
+
+#tblDriver tr:hover {background-color: #ddd;}
+
+#tblDriver th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+}

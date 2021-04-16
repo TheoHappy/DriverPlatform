@@ -20,25 +20,26 @@ public class DriverService {
         return new ArrayList<>(driverRepository.findAll());
     }
 
-//    public Driver save(DriverRequestDto driverRequestDto){
-//        Driver driver = mapDriverRequestDtoToDriver(driverRequestDto);
-//
-//        return driverRepository.save(driver);
-//    }
-
-    public Driver save(Driver driver) {
-        return driverRepository.save(driver);
+    public Driver getDriverById(Long id) {
+        Driver driver = driverRepository.findById(id).orElseThrow(
+                () -> new DriverNotFoundException("No such driver")
+        );
+        return driver;
     }
 
+    public DriverRequestDto save(DriverRequestDto driverRequestDto) {
+        Driver driver = mapDriverRequestDtoToDriver(driverRequestDto);
+        driverRepository.save(driver);
+        return driverRequestDto;
+    }
 
-    public String delete(Long id) {
+    public void delete(Long id) {
         Driver driver = driverRepository.findById(id).orElseThrow(
                 () -> new DriverNotFoundException("No such driver")
         );
 
         driverRepository.delete(driver);
 
-        return "SUCCESS";
     }
 
     private Driver mapDriverRequestDtoToDriver(DriverRequestDto driverRequestDto) {
@@ -53,7 +54,7 @@ public class DriverService {
         return driver;
     }
 
-    public Driver update(Long id, DriverRequestDto driverRequestDto) {
+    public DriverRequestDto update(Long id, DriverRequestDto driverRequestDto) {
         Driver driver = driverRepository.findById(id).orElseThrow(
                 () -> new DriverNotFoundException("No such driver")
         );
@@ -63,14 +64,9 @@ public class DriverService {
         driver.setAge(driverRequestDto.getAge());
         driver.setGender(driverRequestDto.getGender());
         driver.setDriverLicenseId(driverRequestDto.getDriverLicenseId());
-
-        return driverRepository.saveAndFlush(driver);
+        driverRepository.saveAndFlush(driver);
+        return driverRequestDto;
     }
 
-    public Driver getDriverById(Long id) {
-        Driver driver = driverRepository.findById(id).orElseThrow(
-                () -> new DriverNotFoundException("No such driver")
-        );
-        return driver;
-    }
+
 }
